@@ -5,6 +5,10 @@ const port = process.env.PORT || process.argv[2] || 8080;
 
 app.use(express.json());
 
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end();
+});
+
 app.get("/", (req, res) => {
   res.json({ name: "Eden" });
 });
