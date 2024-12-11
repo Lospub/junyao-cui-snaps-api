@@ -14,14 +14,21 @@ const photos = JSON.parse(
 const photoRoutes = express.Router();
 
 photoRoutes.get('/photos', (req, res) => {
-    const filterPhotos = photos.map(photos => ({
-        id:photos.id,
-        photo:photos.photo,
-        photoDescription:photos.photoDescription,
-        photographer:photos.photographer,
-        tags:photos.tags,
+    const filteredPhotos = photos.map(photo => ({
+        id:photo.id,
+        photo:photo.photo,
+        photoDescription:photo.photoDescription,
+        photographer:photo.photographer,
+        tags:photo.tags,
     }))
-    res.json(filterPhotos)
+    res.json(filteredPhotos)
+});
+
+photoRoutes.get('/photos/:id', (req, res) => {
+
+    const photo = photos.find(photo => photo.id === req.params.id);
+    
+    res.json(photo)
 });
 
 app.use('/api', photoRoutes);
