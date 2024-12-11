@@ -7,10 +7,10 @@ const tags = JSON.parse(
     )
 );
 
-const router = express.Router();
+const tagRoutes = express.Router();
 
-router.get('/tags', (req, res) => {
+tagRoutes.get('/tags', (req, res) => {
     res.json(tags);
 });
 
-export default router;
+export default tagRoutes;
