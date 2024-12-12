@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from "fs";
 import { readFile } from 'fs/promises';
 
 const app = express();
@@ -25,10 +26,17 @@ photoRoutes.get('/photos', (req, res) => {
 });
 
 photoRoutes.get('/photos/:id', (req, res) => {
-
     const photo = photos.find(photo => photo.id === req.params.id);
-    
-    res.json(photo)
+    const filteredPhoto = {
+        id: photo.id,
+        photo: photo.photo,
+        photoDescription: photo.photoDescription,
+        photographer: photo.photographer,
+        likes: photo.likes,
+        timestamp: photo.timestamp,
+        tags: photo.tags,
+    };
+    res.json(filteredPhoto)
 });
 
 app.use('/api', photoRoutes);
