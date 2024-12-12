@@ -1,10 +1,11 @@
 import express from 'express';
 import fs from "fs";
 import { readFile } from 'fs/promises';
+import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 const port = process.env.PORT || process.argv[2] || 8080;
-
+app.use(express.json());
 
 const photos = JSON.parse(
     await readFile(
@@ -41,6 +42,22 @@ photoRoutes.get('/photos/:id', (req, res) => {
 
 photoRoutes.get('/photos/:id/comments', (req, res) => {
     const photo = photos.find(photo => photo.id === req.params.id);
+    const comments = photo.comments;
+    res.json(comments);
+});
+
+photoRoutes.post('/photos/:id/comments', (req, res) => {
+    const newComment = {
+        name: req.body.name,
+        comment: req.body.comment,
+        id: uuidv4(), 
+        timestamp: Date.now(),
+    }
+
+    const photo = photos.find(photo => photo.id === req.params.id);
+    photo.comments.push(newComment);
+    const stringPhotos = JSON.stringify(photos);
+    fs.writeFileSync("../data/photos.json", stringPhotos);
     const comments = photo.comments;
     res.json(comments);
 });
