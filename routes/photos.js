@@ -39,6 +39,12 @@ photoRoutes.get('/photos/:id', (req, res) => {
     res.json(filteredPhoto)
 });
 
+photoRoutes.get('/photos/:id/comments', (req, res) => {
+    const photo = photos.find(photo => photo.id === req.params.id);
+    const comments = photo.comments;
+    res.json(comments);
+});
+
 app.use('/api', photoRoutes);
 
 app.listen(port, () => console.log(`Listening on ${port}`));
