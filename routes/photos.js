@@ -54,8 +54,7 @@ photoRoutes.post('/photos/:id/comments', (req, res) => {
     photo.comments.push(newComment);
     const stringPhotos = JSON.stringify(photos);
     fs.writeFileSync("./data/photos.json", stringPhotos);
-    const comments = photo.comments;
-    res.json(comments);
+    res.json(newComment);
 });
 
 export default photoRoutes;
