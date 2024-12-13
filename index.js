@@ -1,5 +1,6 @@
 import express from "express";
 import tagRoutes from "./routes/tags.js"; 
+import photoRoutes from "./routes/photos.js";
 
 const app = express();
 const port = process.env.PORT || process.argv[2] || 8080;
@@ -11,5 +12,7 @@ app.get("/favicon.ico", (req, res) => {
 });
 
 app.use('/api', tagRoutes);
+
+app.use('/api', photoRoutes);
 
 app.listen(port, () => console.log(`Listening on ${port}`));
