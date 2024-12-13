@@ -53,7 +53,7 @@ photoRoutes.post('/photos/:id/comments', (req, res) => {
     const photo = photos.find(photo => photo.id === req.params.id);
     photo.comments.push(newComment);
     const stringPhotos = JSON.stringify(photos);
-    fs.writeFileSync("../data/photos.json", stringPhotos);
+    fs.writeFileSync("./data/photos.json", stringPhotos);
     const comments = photo.comments;
     res.json(comments);
 });
