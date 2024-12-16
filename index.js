@@ -18,8 +18,8 @@ app.get("/favicon.ico", (req, res) => {
 });
 
 // API routes
-app.use('/api/tags', tagRoutes);
-app.use('/api/photos', photoRoutes);
+app.use('/api/', tagRoutes);
+app.use('/api/', photoRoutes);
 
 // 404 handler for unknown endpoints
 app.use((req, res) => {
