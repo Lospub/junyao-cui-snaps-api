@@ -1,24 +1,32 @@
 import express from "express";
 import tagRoutes from "./routes/tags.js"; 
 import photoRoutes from "./routes/photos.js";
-import cors from "cors"
+import cors from "cors";
 import "dotenv/config";
 
 const app = express();
 const port = process.env.PORT || process.argv[2] || 8080;
 
-app.use(express.static("public"));
-app.use(express.json());
-app.use(cors());
+// Middleware
+app.use(express.static("public")); 
+app.use(express.json());           
+app.use(cors());                   
 
+// Handle favicon requests (avoids unnecessary errors in logs)
 app.get("/favicon.ico", (req, res) => {
   res.status(204).end();
 });
 
-app.use('/api', tagRoutes);
+// API routes
+app.use('/api/tags', tagRoutes);
+app.use('/api/photos', photoRoutes);
 
-app.use('/api', photoRoutes);
+// 404 handler for unknown endpoints
+app.use((req, res) => {
+  res.status(404).json({ message: "Endpoint not found" });
+});
 
+// Start server
 app.listen(port, () => {
-  console.log(`Server running at ${process.env.BACKEND_URL}${port}`);
+  console.log(`Server running at ${process.env.BACKEND_URL || "http://localhost:"}${port}`);
 });
