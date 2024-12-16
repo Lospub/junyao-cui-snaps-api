@@ -23,7 +23,7 @@ app.use('/api/', photoRoutes);
 
 // 404 handler for unknown endpoints
 app.use((req, res) => {
-  res.status(404).json({ message: "Endpoint not found" });
+  res.status(404).json({ message: "Endpoint not found." });
 });
 
 // Start server
